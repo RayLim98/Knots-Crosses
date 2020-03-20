@@ -1,8 +1,9 @@
 from IPython.display import clear_output
 
-board = [' ',' ',' ',' ',' ',' ',' ',' ',' ']
+board_3x3 = [' ',' ',' ',' ',' ',' ',' ',' ',' ']
+board_4x4 = [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
 
-def size_board(board):
+def size_board(board_3x3):
     if len(board)==9:
         return 3
     elif len(board)==16:
@@ -11,8 +12,8 @@ def size_board(board):
         print('Board size is unslected or unviable')
     
 
-#prints out the board 
-def display_board(board):
+#prints out board 
+def display_board(board_3x3):
         print(board[0] + '|' +board[1] + '|' +board[2])
         print('- '+'- '+'- ')
         print(board[3] + '|' +board[4] + '|' +board[5])
@@ -20,7 +21,16 @@ def display_board(board):
         print(board[6] + '|' +board[7] + '|' +board[8])
 
 
-#player 1 select to X or O. P2 is give the other 
+def display_board(board_4x4):
+        print(board[0] + '|' +board[1] + '|' +board[2] + '|' +board[3])
+        print('- '+'- '+'- '+'- ')
+        print(board[4] + '|' +board[5] + '|' +board[6] + '|' +board[7])
+        print('- '+'- '+'- '+'- ')
+        print(board[8] + '|' +board[9] + '|' +board[10] + '|' +board[11])
+        print('- '+'- '+'- '+'- ')
+        print(board[12] + '|' +board[13] + '|' +board[14] + '|' +board[15])
+
+#player 1 select to X or O. P2 is given the other 
 def player_assign():
     player_1 = ''
     player_2 = ''
