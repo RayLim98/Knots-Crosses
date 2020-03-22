@@ -1,27 +1,17 @@
 from IPython.display import clear_output
 
-board_3x3 = [' ',' ',' ',' ',' ',' ',' ',' ',' ']
-board_4x4 = [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
 
-def size_board(board_3x3):
-    if len(board)==9:
-        return 3
-    elif len(board)==16:
-        return 4
-    else:
-        print('Board size is unslected or unviable')
-    
 
 #prints out board 
-def display_board(board_3x3):
+def display_board(board):
+    if len(board)==9:
+        print('\n')
         print(board[0] + '|' +board[1] + '|' +board[2])
         print('- '+'- '+'- ')
         print(board[3] + '|' +board[4] + '|' +board[5])
         print('- '+'- '+'- ')
         print(board[6] + '|' +board[7] + '|' +board[8])
-
-
-def display_board(board_4x4):
+    elif len(board)==16:
         print(board[0] + '|' +board[1] + '|' +board[2] + '|' +board[3])
         print('- '+'- '+'- '+'- ')
         print(board[4] + '|' +board[5] + '|' +board[6] + '|' +board[7])
@@ -29,6 +19,7 @@ def display_board(board_4x4):
         print(board[8] + '|' +board[9] + '|' +board[10] + '|' +board[11])
         print('- '+'- '+'- '+'- ')
         print(board[12] + '|' +board[13] + '|' +board[14] + '|' +board[15])
+
 
 #player 1 select to X or O. P2 is given the other 
 def player_assign():
@@ -48,40 +39,80 @@ def player_assign():
     
     return (player_1,player_2)
 
-#calls for the funtion and stores the assgined marker for p1's and p2's slection.
-p1_mark,p2_mark = player_assign()
 
-def check_condition():
-    for char in range(len(board)):
-        if board[char] == board[char+1] == board[char+2]: 
-            print("WIN")
-            return True
-        else:
-            return False
+def win_check(board):
+    if board[0]==board[1]==board[2]!=' ' or board[3]==board[4]==board[5]!=' ' or board[6]==board[7]==board[8]!=' ':
+        return True
+    else:
+        return False
 
-
-
-#game starst when called. Calls functions for setup and turn base algorrithm 
-def game_input():       
+def game_restart():
+    game_select=''
     
-    while check_condition!=True:
-        clear_output()
+    while game_select!='No' and game_select!='Yes':
+        game_select = input('Would you like to start again???: ')
+        
+    if game_select=='Yes':
+        game_input()
+    else:
+        pass
+
+def p1_turn(board,p1_mark):
+    while True:
+        position = int(input("Player 1's turn: "))
+        if position==1234:
+            game_restart()
+        elif board[position-10]==' ':
+            board[position-10]=p1_mark
+            break
+        else:
+            pass
+
+def p2_turn(board,p2_mark):
+    while True:
+        position = int(input("Player 2's turn: "))
+        if board[position-10]==' ':
+            board[position-10]=p2_mark
+            break
+        else:
+            pass
+
+#game starts when called. Calls functions for setup and turn base algorrithm 
+def game_input():  
+
+    #calls for the funtion and stores the assgined marker for p1's and p2's slection.
+    p1_mark,p2_mark = player_assign()
+    board = [' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    check_condition=False     
+
+    #loops between 1 and 2 to start until wining conditions are met. Winning conditions are...
+    #determined in the function win_check(board)
+    while True:
+
         display_board(board)
         #player 1 starts
-        position = int(input("Player 1's turn: "))
-        board[position-10] = p1_mark
-        
-        check_condition()
+        p1_turn(board,p1_mark)
+        check_condition = win_check(board)
+        if check_condition==True:
+            display_board(board)
+            print('Player 1 wins!!')
+            break
+        else:
+            pass
 
-        clear_output()
-        
+        display_board(board)
         #player 2 starts
-        display_board(board)
-        position = int(input("Player 2's turn: "))
-        board[position-10] = p2_mark
-        display_board(board)
-        
-        check_condition()
-        
-
-game_input()    
+        p2_turn(board,p2_mark)
+        check_condition = win_check(board)
+        if check_condition==True:
+            display_board(board)
+            print('Player 2 wins!!')
+            break
+        else:
+            pass
+    #option to restart the game   
+    game_restart()
+    
+#initialize code
+game_input()
+   
