@@ -56,7 +56,7 @@ def game_restart():
     while game_select!='No' and game_select!='Yes':
         game_select = input('Would you like to start again???: ')
         
-    if game_select=='yes' or game_select=='Yes':
+    if game_select=='Yes':
         game_input()
     else:
         pass
@@ -75,7 +75,7 @@ def p1_turn(board,p1_mark):
 def p2_turn(board,p2_mark):
     while True:
         position = int(input("Player 2's turn: "))
-        if postion==1234:
+        if position==1234:
             game_restart()
         elif board[position-10]==' ':
             board[position-10]=p2_mark
@@ -117,8 +117,6 @@ def game_input():
         else:
             pass
     #option to restart the game   
-    game_restart()
     
-#initialize code
 game_input()
-   
+game_restart()
