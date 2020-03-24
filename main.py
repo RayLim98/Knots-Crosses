@@ -43,6 +43,10 @@ def player_assign():
 def win_check(board):
     if board[0]==board[1]==board[2]!=' ' or board[3]==board[4]==board[5]!=' ' or board[6]==board[7]==board[8]!=' ':
         return True
+    elif board[0]==board[4]==board[8]!=' ' or board[2]==board[4]==board[6]!=' ':
+        return True
+    elif board[0]==board[3]==board[6]!=' ' or board[1]==board[4]==board[7]!=' ' or board[2]==board[5]==board[8]!=' ':
+        return True
     else:
         return False
 
@@ -52,7 +56,7 @@ def game_restart():
     while game_select!='No' and game_select!='Yes':
         game_select = input('Would you like to start again???: ')
         
-    if game_select=='Yes':
+    if game_select=='yes' or game_select=='Yes':
         game_input()
     else:
         pass
@@ -71,7 +75,9 @@ def p1_turn(board,p1_mark):
 def p2_turn(board,p2_mark):
     while True:
         position = int(input("Player 2's turn: "))
-        if board[position-10]==' ':
+        if postion==1234:
+            game_restart()
+        elif board[position-10]==' ':
             board[position-10]=p2_mark
             break
         else:
